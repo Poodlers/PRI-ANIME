@@ -42,12 +42,39 @@ function requestAnimeAttributes(request_body, animeEntry, attName, relevantAttri
         attObj[relevantAttributes[j]] = attributes[relevantAttributes[j]]
 
       }
-
       genreArray.push(attObj)
     }
 
     animeEntry[attName] = genreArray
 
+}
+
+async function parseCategory(request_body, animeEntry){
+  const categoriesColection = db.collection("anime_categories");
+  const categories = categoriesColection.doc();
+  var genreResponse = JSON.parse(request_body).data;
+  var genreArray = []
+
+  for(let i = 0; i < genreResponse.length; i++){
+    var cat = await categoriesColection.where('id', '==', genreResponse[i].id).limit(1).get();
+    genreArray.push(genreResponse[i].id)
+    if (cat.empty){ 
+      var category = {id: genreResponse[i].id}
+      var attributes = genreResponse[i].attributes
+      category['tittle'] = attributes.title
+      category['description'] = attributes.description
+      category['totalMediaCount'] = 1
+      category['nsfw'] = attributes.nsfw
+      await categories.set(category);
+    }else{
+      const thing = cat.docs[0];
+      let tmp = thing.data();
+      tmp.totalMediaCount = tmp.totalMediaCount + 1;
+      thing.ref.update(tmp);
+    }
+  }
+
+  animeEntry['Categories'] = genreArray
 }
 
 async function parseOneAnime(animeResponse){
@@ -122,9 +149,8 @@ async function parseOneAnime(animeResponse){
   var categories_request = relationships.categories.links.related
 
   await getResponseSync(categories_request).then(
-
     function(body){
-      requestAnimeAttributes(body, animeEntry, "categories" ,["title"])
+      parseCategory(body, animeEntry)
     }
   )
 
@@ -180,7 +206,7 @@ function readNextAnimeIntoDb(){
   var countGlobal = fs.readFileSync("anime2022_count.txt", {encoding:'utf8', flag:'r'});
   console.log(countGlobal)
 
-  request('https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=' + countGlobal + '&filter[seasonYear]=2022',async function (error, response, body){
+  request('https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=' + countGlobal + '&filter[seasonYear]=2021',async function (error, response, body){
   console.log('Response:', body);
 
   var animeResponseArray = JSON.parse(body).data;
