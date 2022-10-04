@@ -12,6 +12,7 @@ initializeApp({
 });
 
 const db = getFirestore();
+const categoriesColection = db.collection("anime_categories");
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -48,7 +49,6 @@ function requestAnimeAttributes(request_body, animeEntry, attName, relevantAttri
 }
 
 async function parseCategory(request_body, animeEntry){
-  const categoriesColection = db.collection("anime_categories");
   const categories = categoriesColection.doc();
   var genreResponse = JSON.parse(request_body).data;
   var genreArray = []
@@ -200,6 +200,8 @@ async function parseOneAnime(animeResponse){
 } 
 
 
+const animeEntriesCollection = db.collection('anime_entries')
+
 function readNextAnimeIntoDb(){
   var countGlobal = fs.readFileSync("anime2022_count.txt", {encoding:'utf8', flag:'r'});
   console.log(countGlobal)
@@ -214,7 +216,7 @@ function readNextAnimeIntoDb(){
     var animeEntry = {}
     try{
       animeEntry = await parseOneAnime(animeResponseArray[i]);
-      const docRef = db.collection('anime_entries').doc();
+      const docRef = animeEntriesCollection.doc();
 
       await docRef.set(animeEntry);
       
