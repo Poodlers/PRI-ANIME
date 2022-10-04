@@ -1,4 +1,4 @@
-import request from 'request';
+import {request} from 'request';
 
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
@@ -196,51 +196,67 @@ async function parseOneAnime(animeResponse){
 
   return animeEntry;
   
-
 } 
 
-
+const animeYear = 2022
 const animeEntriesCollection = db.collection('anime_entries')
 
-function readNextAnimeIntoDb(){
-  var countGlobal = fs.readFileSync("anime2022_count.txt", {encoding:'utf8', flag:'r'});
+async function readNextAnimeIntoDb(){
+  var countGlobal = fs.readFileSync("anime" + animeYear + "_count.txt", {encoding:'utf8', flag:'r'});
   console.log(countGlobal)
+  countGlobal = parseInt(countGlobal)
 
-  request('https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=' + countGlobal + '&filter[seasonYear]=2022',async function (error, response, body){
-  console.log('Response:', body);
-
-  var animeResponseArray = JSON.parse(body).data;
-  var count = parseInt(countGlobal)
-
-  for(let i = 0; i < animeResponseArray.length; i++){
-    var animeEntry = {}
-    try{
-      animeEntry = await parseOneAnime(animeResponseArray[i]);
-      const docRef = animeEntriesCollection.doc();
-
-      await docRef.set(animeEntry);
-      
-      count++;
-      console.log("\n========== COUNT: %d    ============\n", count );
-
-
-    }catch(e){
-      console.log(e)
-      break  //abort the reading operation
-    }
+  await getResponseSync('https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=' + countGlobal +
+  '&filter[seasonYear]=' + animeYear ).then(
+    async function (body){
+      console.log('Response:', body);
     
+      var animeResponseArray = JSON.parse(body).data;
+      
+      for(let i = 0; i < animeResponseArray.length; i++){
+        var animeEntry = {}
+        try{
+          const animeID = animeResponseArray[i].id
+          const animeRef = await animeEntriesCollection.where('id', '==', animeID).get();
+    
+          if(animeRef.empty){
+              animeEntry = await parseOneAnime(animeResponseArray[i]);
+              const docRef = animeEntriesCollection.doc();
+    
+              await docRef.set(animeEntry);
+            
+              countGlobal++;
+              console.log("\n========== COUNT: %d    ============\n", countGlobal );
+          }else{
+            console.log("Anime already in database")
+          }
+         
+    
+        }catch(e){
+          console.log(e)
+          break  //abort the reading operation
+        }
+        
+    
+      }
+    
+      fs.writeFileSync("anime" + animeYear + "_count.txt", countGlobal.toString());
+    
+    
+    }
+  )
 
-  }
-
-  fs.writeFileSync("anime2022_count.txt", count.toString());
-
-
-
-
-
-})
+  return countGlobal
 
 }
 
 
-readNextAnimeIntoDb()
+var countAnimeFinal = 0
+var lastValue = 0
+while(true){
+  countAnimeFinal = await readNextAnimeIntoDb()
+  if(countAnimeFinal == lastValue){
+    break
+  }
+  lastValue = countAnimeFinal
+}
