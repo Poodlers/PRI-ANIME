@@ -3,9 +3,7 @@ import request from 'request';
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
-import { readFileSync } from 'fs';
 import * as fs from 'fs';
-import { count } from 'console';
 
 const serviceAccount = JSON.parse(fs.readFileSync('anime-database-pri-firebase-adminsdk-tqtzj-ea69f4853d.json', 'utf8'));
 
