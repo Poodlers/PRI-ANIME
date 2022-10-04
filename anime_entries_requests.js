@@ -204,7 +204,7 @@ function readNextAnimeIntoDb(){
   var countGlobal = fs.readFileSync("anime2022_count.txt", {encoding:'utf8', flag:'r'});
   console.log(countGlobal)
 
-  request('https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=' + countGlobal + '&filter[seasonYear]=2021',async function (error, response, body){
+  request('https://kitsu.io/api/edge/anime?page[limit]=20&page[offset]=' + countGlobal + '&filter[seasonYear]=2022',async function (error, response, body){
   console.log('Response:', body);
 
   var animeResponseArray = JSON.parse(body).data;
