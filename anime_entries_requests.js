@@ -1,5 +1,4 @@
-import {request} from 'request';
-
+import request from 'request';
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
@@ -98,6 +97,12 @@ async function parseOneAnime(animeResponse){
   animeEntry["favourites_count"] = animeAttributes.favoritesCount
   
   animeEntry["start_date"] = animeAttributes.startDate
+
+  if(animeAttributes.startDate != null){
+    animeEntry["year"] = animeAttributes.startDate.substring(0,4)
+    
+  }
+  
 
   animeEntry["end_date"] = animeAttributes.endDate
 
@@ -198,11 +203,17 @@ async function parseOneAnime(animeResponse){
   
 } 
 
-const animeYear = 2022
+const animeYear = process.argv[2];
+const animeCountPath = "anime" + animeYear + "_count.txt"
 const animeEntriesCollection = db.collection('anime_entries')
 
+if(!fs.existsSync(animeCountPath)){
+  fs.writeFileSync("anime" + animeYear + "_count.txt", "0", {encoding:'utf8', flag:'wx'});
+}
+
+
 async function readNextAnimeIntoDb(){
-  var countGlobal = fs.readFileSync("anime" + animeYear + "_count.txt", {encoding:'utf8', flag:'r'});
+  var countGlobal = fs.readFileSync(animeCountPath, {encoding:'utf8', flag:'r'});
   console.log(countGlobal)
   countGlobal = parseInt(countGlobal)
 
@@ -236,11 +247,10 @@ async function readNextAnimeIntoDb(){
           console.log(e)
           break  //abort the reading operation
         }
-        
-    
+            
       }
     
-      fs.writeFileSync("anime" + animeYear + "_count.txt", countGlobal.toString());
+      fs.writeFileSync(animeCountPath, countGlobal.toString());
     
     
     }

@@ -280,13 +280,15 @@ async function makeProductionRelationShipRequests(production_relationships, anim
 
 }   
 
+const animeYear = process.argv[2];
+const animeRef = await animeCollection.where('year', '==', animeYear).get();
 
-const animeRef = await animeCollection.where('id', '==', "3").get();
 if (animeRef.empty) {
   console.log('No matching documents.');
   
 }
 
+var count = 0
 animeRef.forEach( doc => {
     const docObj = doc.data()
     //fill the characters table first
@@ -320,5 +322,8 @@ animeRef.forEach( doc => {
     if(reviews != undefined){
         makeReviewsRequests(reviews, docObj.id)
     }
+    count++;
+
+    console.log("====== Parsed anime #", count)
 
 } )

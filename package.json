@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.10.1",
+    "d3": "^7.6.1",
+    "d3-cloud": "^1.2.5",
     "firebase-admin": "^11.0.1",
     "fs": "^0.0.1-security",
     "node-fetch": "^3.2.10",
