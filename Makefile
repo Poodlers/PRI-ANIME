@@ -1,7 +1,7 @@
 # The all target helps automate the whole process: by running `make` from the command line, you can do everything in one go
 # You can define further targets that only execute smaller subsets of your data pipeline according to your needs 
 
-year := 2018
+year := 2017
 
 all: collect_anime exploration
 

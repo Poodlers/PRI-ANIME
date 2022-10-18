@@ -154,24 +154,29 @@ async function makeCharacterRequests(charactersArray, animeID){
 
 async function makePersonStaffRequest(request_body){
     var personResponse = JSON.parse(request_body).data;
-    const personID = personResponse.id
-    const personAttributes = personResponse.attributes
-    const peopleRef = await staffCollection.where('id', '==', personID).get();
-    if (peopleRef.empty) {
-        const newPerson = staffCollection.doc()
-        var personEntry = {"id": personID }
-        personEntry["name"] = personAttributes.name
-        personEntry["description"] = personAttributes.description
-        if(personAttributes.image != undefined){
-            personEntry["portrait"] = personAttributes.image.original
+    try{
+        const personID = personResponse.id
+        const personAttributes = personResponse.attributes
+        const peopleRef = await staffCollection.where('id', '==', personID).get();
+        if (peopleRef.empty) {
+            const newPerson = staffCollection.doc()
+            var personEntry = {"id": personID }
+            personEntry["name"] = personAttributes.name
+            personEntry["description"] = personAttributes.description
+            if(personAttributes.image != undefined){
+                personEntry["portrait"] = personAttributes.image.original
+            }
+            
+
+            await newPerson.set(personEntry);
+
+            console.log("added STAFF with ID: ", personID)
+
         }
-        
-
-        await newPerson.set(personEntry);
-
-        console.log("added STAFF with ID: ", personID)
-
+    }catch(e){
+        console.log(e)
     }
+    
 
 }
 
@@ -183,7 +188,8 @@ async function makeStaffRequests(staffRelationships){
             function(body){
                 makePersonStaffRequest(body)
             }
-        ).catch( () => {
+        ).catch( (reason) => {
+            console.log("reason: ", reason)
             console.log("Rejected: STAFF  ", media_staff_id)
           })
 
@@ -194,19 +200,23 @@ async function makeStaffRequests(staffRelationships){
 
 async function makeMediaRelationRequest(request_body , relationShipID,  role, sourceID){
     var relationResponse = JSON.parse(request_body).data;
+    try{
+        const relationRef = await anime_mediaCollection.where('id', '==', relationShipID).get();
+        if (relationRef.empty) {
+            const newRelation = anime_mediaCollection.doc()
+            var relationEntry = {"id": relationShipID }
+            relationEntry["role"] = role
+            relationEntry["sourceID"] = sourceID
+            relationEntry["destinationInfo"] = {"type" : relationResponse.type , "idDest": relationResponse.id }
+
+            await newRelation.set(relationEntry);
+
+            console.log("added media relation with ID: ", relationShipID)
+        } 
+    }catch(e){
+        console.log(e)
+    }
     
-    const relationRef = await anime_mediaCollection.where('id', '==', relationShipID).get();
-    if (relationRef.empty) {
-        const newRelation = anime_mediaCollection.doc()
-        var relationEntry = {"id": relationShipID }
-        relationEntry["role"] = role
-        relationEntry["sourceID"] = sourceID
-        relationEntry["destinationInfo"] = {"type" : relationResponse.type , "idDest": relationResponse.id }
-
-        await newRelation.set(relationEntry);
-
-        console.log("added media relation with ID: ", relationShipID)
-    } 
 }
 
 async function makeMediaRequests(mediaRelationships, animeID){
@@ -218,7 +228,8 @@ async function makeMediaRequests(mediaRelationships, animeID){
             function(body){
                 makeMediaRelationRequest(body, media_relationships_id, media_relationship_type, animeID)
             }
-        ).catch( () => {
+        ).catch( (reason) => {
+            console.log("reason: " , reason)
             console.log("Rejected: MEDIA RELATIONSHIP  ", media_relationships_id)
           })
 
@@ -259,7 +270,7 @@ async function makeReviewsRequests(reviews, animeID){
                 function(body){
                     makeIndividualReviewReq(body, animeID, reviewID)
                 }
-            ).catch( () => {
+            ).catch( (reason) => {
                 console.log("Rejected: REVIEW  ", reviewID)
               })
     
@@ -309,6 +320,7 @@ if (animeRef.empty) {
 }
 
 var count = 0
+
 animeRef.forEach( doc => {
     const docObj = doc.data()
     //fill the characters table first
@@ -346,4 +358,4 @@ animeRef.forEach( doc => {
 
     console.log("====== Parsed anime #", count)
 
-} )
+} ) 
