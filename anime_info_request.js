@@ -75,7 +75,9 @@ async function makeVARequest(request_body, characterID){
             function(body) {
               makePersonVARequest(body, characterID, language)
             }
-          ) 
+          ).catch( () => {
+            console.log("Rejected: CASTING  ", VACastingID)
+          })
 
        
     }   
@@ -105,7 +107,10 @@ async function makeCharacterInfoRequest(request_body, animeEntry, animeID){
         function(body) {
           makeVARequest(body, animeEntry.id)
         }
-      ) 
+      ).catch( () => {
+        console.log("Rejected: VOICE ACTORS  ", charAttributes.canonicalName)
+      })
+
 
 
 }
@@ -124,7 +129,10 @@ async function makeCharacterRequests(charactersArray, animeID){
                 function(body) {
                   makeCharacterInfoRequest(body, characterEntry, animeID)
                 }
-              ) 
+              ).catch( () => {
+                console.log("Rejected: character  ", charObjId)
+              })
+    
             await newChara.set(characterEntry);
             console.log("Added new character ID: ", charObjId )
         }else{
@@ -175,7 +183,10 @@ async function makeStaffRequests(staffRelationships){
             function(body){
                 makePersonStaffRequest(body)
             }
-        )
+        ).catch( () => {
+            console.log("Rejected: STAFF  ", media_staff_id)
+          })
+
 
          
     }
@@ -207,7 +218,10 @@ async function makeMediaRequests(mediaRelationships, animeID){
             function(body){
                 makeMediaRelationRequest(body, media_relationships_id, media_relationship_type, animeID)
             }
-        )
+        ).catch( () => {
+            console.log("Rejected: MEDIA RELATIONSHIP  ", media_relationships_id)
+          })
+
 
          
     }
@@ -245,7 +259,10 @@ async function makeReviewsRequests(reviews, animeID){
                 function(body){
                     makeIndividualReviewReq(body, animeID, reviewID)
                 }
-            )
+            ).catch( () => {
+                console.log("Rejected: REVIEW  ", reviewID)
+              })
+    
         }
     }
 }
@@ -273,7 +290,10 @@ async function makeProductionRelationShipRequests(production_relationships, anim
                 function(body){
                     makeIndividualProductionRelationRequest(body, animeID, production_relationshipsID, relationType)
                 }
-            )
+            ).catch( () => {
+                console.log("Rejected: PRODUCTION RELATIONSHIP  ", production_relationshipsID)
+              })
+    
         }
 
     }
