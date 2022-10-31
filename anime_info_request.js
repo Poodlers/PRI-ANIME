@@ -1,3 +1,5 @@
+import { time } from 'console';
+import { scaleDivergingPow } from 'd3';
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 import * as fs from 'fs';
@@ -8,7 +10,7 @@ const serviceAccount = JSON.parse(fs.readFileSync('anime-database-pri-firebase-a
 initializeApp({
   credential: cert(serviceAccount)
 });
-
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 const db = getFirestore();
 
 const animeCollection = db.collection('anime_entries')
@@ -24,10 +26,16 @@ function getResponseSync(url){
     return new Promise((resolve, reject) => {
       request(url, (error, response, body) => {
           if (error) console.log("Error: ", error);
-          if (response.statusCode != 200) {
-              reject('Invalid status code <' + response.statusCode + '>');
+          if(response == undefined){
+            delay(500);
+            return getResponseSync(url);
           }
-          resolve(body);
+          else if (response.statusCode != 200) {
+              reject('Invalid status code <' + response.statusCode + '>');
+          }else{
+            resolve(body);
+          }
+          
       });
   });
   }
@@ -140,10 +148,13 @@ async function makeCharacterRequests(charactersArray, animeID){
                 const characterDoc = charactersCollection.doc(doc.id)
                 var characterObj = doc.data()
 
-                var char_appearsOn = characterObj.appears_on
+                var char_appearsOn = characterObj["appears_on"]
+                if(char_appearsOn == undefined){
+                    char_appearsOn = []
+                }
 
                 char_appearsOn.push(animeID)
-                characterObj.appears_on = char_appearsOn
+                characterObj["appears_on"] = char_appearsOn
 
                 characterDoc.set(characterObj)
 
@@ -184,7 +195,7 @@ async function makeStaffRequests(staffRelationships){
     for(let i = 0; i < staffRelationships.length; i++){
         const media_staff_id = staffRelationships[i].id
         var personRequest =  "https://kitsu.io/api/edge/media-staff/" + media_staff_id +  "/person"
-        getResponseSync(personRequest).then(
+        await getResponseSync(personRequest).then(
             function(body){
                 makePersonStaffRequest(body)
             }
@@ -224,7 +235,7 @@ async function makeMediaRequests(mediaRelationships, animeID){
         const media_relationships_id = mediaRelationships[i].id
         const media_relationship_type = mediaRelationships[i].role
         var destRequest =  "https://kitsu.io/api/edge/media-relationships/" + media_relationships_id + "/relationships/destination"
-        getResponseSync(destRequest).then(
+        await getResponseSync(destRequest).then(
             function(body){
                 makeMediaRelationRequest(body, media_relationships_id, media_relationship_type, animeID)
             }
@@ -266,7 +277,7 @@ async function makeReviewsRequests(reviews, animeID){
         const reviewRef = await anime_reviewsCollection.where('id', '==', reviewID).get();
         if (reviewRef.empty) {
             var reviewRequest =  "https://kitsu.io/api/edge/reviews/" + reviewID
-            getResponseSync(reviewRequest).then(
+            await getResponseSync(reviewRequest).then(
                 function(body){
                     makeIndividualReviewReq(body, animeID, reviewID)
                 }
@@ -297,7 +308,7 @@ async function makeProductionRelationShipRequests(production_relationships, anim
         const productionRef = await anime_productions_relationsCollection.where('id', '==', production_relationshipsID).get();
         if(productionRef.empty){
             var companyRequest = "https://kitsu.io/api/edge/media-productions/" + production_relationshipsID + "/company" 
-            getResponseSync(companyRequest).then(
+           await getResponseSync(companyRequest).then(
                 function(body){
                     makeIndividualProductionRelationRequest(body, animeID, production_relationshipsID, relationType)
                 }
@@ -321,12 +332,12 @@ if (animeRef.empty) {
 
 var count = 0
 
-animeRef.forEach( doc => {
+animeRef.forEach( async doc =>{
     const docObj = doc.data()
     //fill the characters table first
     var charactersArr = docObj.characters
     if(charactersArr != undefined){
-        makeCharacterRequests(charactersArr, docObj.id)
+       await makeCharacterRequests(charactersArr, docObj.id)
     }
 
     //fill the anime-staff relationships
@@ -334,28 +345,28 @@ animeRef.forEach( doc => {
     var staffRelationships = docObj.staff
 
     if(staffRelationships != undefined){
-        makeStaffRequests(staffRelationships)
+        await makeStaffRequests(staffRelationships)
     }
 
     //fill the media-relationship relationships
     var mediaRelationships = docObj.media_relationships
     if(mediaRelationships != undefined){
-        makeMediaRequests(mediaRelationships, docObj.id)
+       await makeMediaRequests(mediaRelationships, docObj.id)
     }
 
     //fill the production relationships
     var production_relationships = docObj.production_relationships
     if(production_relationships != undefined){
-        makeProductionRelationShipRequests(production_relationships, docObj.id)
+       await makeProductionRelationShipRequests(production_relationships, docObj.id)
     }
 
     // fill the review relationships
     var reviews = docObj.reviews
     if(reviews != undefined){
-        makeReviewsRequests(reviews, docObj.id)
+        await makeReviewsRequests(reviews, docObj.id)
     }
     count++;
-
+    delay(500);
     console.log("====== Parsed anime #", count)
 
 } ) 
