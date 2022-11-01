@@ -220,7 +220,7 @@ const animeCountPath = "counters/anime" + animeYear + "_count.txt"
 const animeEntriesCollection = db.collection('anime_entries')
 
 if (!fs.existsSync(animeCountPath)) {
-  fs.writeFileSync("anime" + animeYear + "_count.txt", "0", {
+  fs.writeFileSync("counters/anime" + animeYear + "_count.txt", "0", {
     encoding: 'utf8',
     flag: 'wx'
   });
