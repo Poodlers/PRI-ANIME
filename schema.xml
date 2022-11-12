@@ -1,0 +1,12 @@
+curl 'http://localhost:8983/solr/anime_entries/update/json/docs'\
+'?split=/'\
+'&f=txt:/**'\
+ -H 'Content-type:application/json' -d ' {"id":"10503","Categories":["184"],"age_rating":"G","age_rating_guide":"All Ages","average_rating":null,"canonical_title":"Sarasoujuu no Hana no Iro","characters":[],"end_date":"1971-01-01","episode_count":1,"episode_length":3,"episodes_info":"https://kitsu.io/api/edge/anime/10503/episodes","favourites_count":0,"genre":[{"name":"Drama","id":"4"}],"media_relationships":[],"nsfw":false,"original_poster":"https://media.kitsu.io/anime/poster_images/10503/original.jpg","popularity_ranking":12959,"production_relationships":[],"rating_ranking":null,"reviews":[],"show_type":"movie","staff":[{"id":"93812","role":"Director"}],"start_date":"1971-01-01","status":"finished","subtype":"movie","synopsis":"Independent animation by Tsukioka Sadao.","title_en":"Spotlight","title_en_jp":"Sarasoujuu no Hana no Iro","title_en_us":"Spotlight","title_ja_jp":"娑羅双樹の花の色","total_length":2,"trailer_video_link":"https://www.youtube.com/watch?v=","year":"1971"}'
+
+ curl 'http://localhost:8983/solr/anime_entries/update/json/docs?split=/genre'\
+ -H 'Content-type:application/json' -d ' {"id":"10503","Categories":["184"],"age_rating":"G","age_rating_guide":"All Ages","average_rating":null,"canonical_title":"Sarasoujuu no Hana no Iro","characters":[],"end_date":"1971-01-01","episode_count":1,"episode_length":3,"episodes_info":"https://kitsu.io/api/edge/anime/10503/episodes","favourites_count":0,"genre":[{"name":"Drama","id":"4"}],"media_relationships":[],"nsfw":false,"original_poster":"https://media.kitsu.io/anime/poster_images/10503/original.jpg","popularity_ranking":12959,"production_relationships":[],"rating_ranking":null,"reviews":[],"show_type":"movie","staff":[{"id":"93812","role":"Director"}],"start_date":"1971-01-01","status":"finished","subtype":"movie","synopsis":"Independent animation by Tsukioka Sadao.","title_en":"Spotlight","title_en_jp":"Sarasoujuu no Hana no Iro","title_en_us":"Spotlight","title_ja_jp":"娑羅双樹の花の色","total_length":2,"trailer_video_link":"https://www.youtube.com/watch?v=","year":"1971"}'
+
+ curl 'http://localhost:8983/solr/anime_entries/update/json/docs'\
+ -H 'Content-type:application/json' -d 
+
+ curl 'http://localhost:8983/solr/anime_entries/update/json/docs?commit=true' --data-binary @animeEntries.json -H 'Content-type:application/json'
