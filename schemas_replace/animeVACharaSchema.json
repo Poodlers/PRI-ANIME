@@ -1,0 +1,20 @@
+{
+    "replace-field": [
+        {
+            "name": "VAId",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "charID",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "lang",
+            "type": "text_general",
+            "indexed": true
+        }
+    ]
+}
+   

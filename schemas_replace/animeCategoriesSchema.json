@@ -1,0 +1,20 @@
+{
+    "replace-field": [
+        {
+            "name": "description",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "tittle",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "totalMediaCount",
+            "type": "plong",
+            "indexed": true
+        }
+    ]
+}
+   

@@ -1,0 +1,16 @@
+{
+    "replace-field": [
+        {
+            "name": "description",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "appears_on",
+            "type": "text_general",
+            "multiValued": true,
+            "indexed": true
+        }
+    ]
+}
+   
