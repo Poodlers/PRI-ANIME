@@ -2,12 +2,12 @@
     "add-field": [
         {
             "name": "description",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {
             "name": "tittle",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {

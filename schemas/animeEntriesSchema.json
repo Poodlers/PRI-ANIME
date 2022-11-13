@@ -221,7 +221,7 @@
         },
         {
             "name": "Categories",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
