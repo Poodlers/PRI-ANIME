@@ -1,0 +1,15 @@
+{
+    "add-field": [
+        {
+            "name": "created_at",
+            "type": "pdate",
+            "indexed": true
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "indexed": true
+        }
+    ]
+}
+   

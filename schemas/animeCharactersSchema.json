@@ -1,0 +1,112 @@
+{
+	"add-field-type": [
+        {
+            "name":"characterName",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"}
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"}
+                ]
+            }
+        }
+    ],
+    "add-field": [
+        {
+            "name": "description",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "appears_on",
+            "type": "string",
+            "multiValued": true,
+            "indexed": true
+        },
+        {
+            "name": "canonical_name",
+            "type": "characterName",
+            "indexed": true
+        },
+        {
+            "name": "other_names",
+            "type": "characterName",
+            "multiValued": true,
+            "indexed": true
+        },
+        {
+            "name": "names_all",
+            "type": "characterName",
+            "multiValued": true,
+            "indexed": true
+        },
+        {
+            "name": "name_en",
+            "type": "characterName",
+            "indexed": true
+        },
+        {
+            "name": "name_ja",
+            "type": "characterName",
+            "indexed": true
+        },
+        {
+            "name": "name_ja_jp",
+            "type": "characterName",
+            "indexed": true
+        },
+        {
+            "name": "name_jp",
+            "type": "characterName",
+            "indexed": true
+        }
+        {
+            "name": "name",
+            "type": "characterName",
+            "indexed": true
+        }
+    ],
+    "add-copy-field":[
+        {
+            "source": "canonical_name",
+            "dest": "names_all"
+        },
+        {
+            "source": "name_en",
+            "dest": "names_all"
+        },
+        {
+            "source": "name_ja",
+            "dest": "names_all"
+        },
+        {
+            "source": "name_ja_jp",
+            "dest": "names_all"
+        },
+        {
+            "source": "name_jp",
+            "dest": "names_all"
+        },
+        {
+            "source": "name",
+            "dest": "names_all"
+        },
+        {
+            "source": "other_names",
+            "dest": "names_all"
+        }
+    ]
+}
+   

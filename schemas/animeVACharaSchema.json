@@ -1,0 +1,20 @@
+{
+    "add-field": [
+        {
+            "name": "VAId",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "charID",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "lang",
+            "type": "string",
+            "indexed": true
+        }
+    ]
+}
+   

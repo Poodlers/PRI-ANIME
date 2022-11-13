@@ -1,0 +1,25 @@
+{
+    "add-field": [
+        {
+            "name": "destinationInfo.idDest",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "destinationInfo.type",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "role",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "sourceID",
+            "type": "string",
+            "indexed": true
+        }
+    ]
+}
+   

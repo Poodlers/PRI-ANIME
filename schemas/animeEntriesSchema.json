@@ -1,0 +1,236 @@
+{
+	"add-field-type": [
+        {
+            "name":"animeTitle",
+            "class":"solr.TextField",
+            "indexAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"}
+                ]
+            },
+            "queryAnalyzer":{
+                "tokenizer":{
+                    "class":"solr.StandardTokenizerFactory"
+                },
+                "filters":[
+                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
+                    {"class":"solr.LowerCaseFilterFactory"}
+                ]
+            }
+        }
+    ],
+    "add-field": [
+        {
+            "name": "canonical_title",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ar",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ca_es",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_da_dk",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_de_de",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en-us",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_Sankarea",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_ar",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_cn",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_il",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_jp",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_jp__Koukaku_Kidoutai",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_kr",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_en_us",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_es_es",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_fi_fi",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_fr_fr",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_he_il",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_hu_hu",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_id_id",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_it_it",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ja_jp",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_jp_jp",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ko_kn",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ko_kr",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_nl_nl",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_pl_pl",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_pt_pt",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ro_ro",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_ru_ru",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_sr_sp",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_sr_cs",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_sv_se",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_th_th",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_vi_vn",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_xh_cn",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_zh_cn",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "title_zh_tw",
+            "type": "animeTitle",
+            "indexed": true
+        },
+        {
+            "name": "Categories",
+            "type": "string",
+            "multiValued": true,
+            "indexed": true
+        },
+        {
+            "name": "title",
+            "type": "animeTitle",
+            "multiValued": true,
+            "indexed": true
+        }
+    ]
+}
+   

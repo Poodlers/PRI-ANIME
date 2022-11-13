@@ -1,0 +1,15 @@
+{
+    "add-field": [
+        {
+            "name": "description",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "name",
+            "type": "string",
+            "indexed": true
+        }
+    ]
+}
+   
