@@ -1,0 +1,20 @@
+{
+    "add-field": [
+        {
+            "name": "description",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "tittle",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "totalMediaCount",
+            "type": "plong",
+            "indexed": true
+        }
+    ]
+}
+   

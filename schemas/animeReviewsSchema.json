@@ -1,0 +1,40 @@
+{
+    "add-field": [
+        {
+            "name": "animeID",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "content",
+            "type": "string",
+            "indexed": true
+        },
+        {
+            "name": "created_at",
+            "type": "pdate",
+            "indexed": true
+        },
+        {
+            "name": "last_updated_at",
+            "type": "pdate",
+            "indexed": true
+        },
+        {
+            "name": "likes_count",
+            "type": "plong",
+            "indexed": true
+        },
+        {
+            "name": "rating",
+            "type": "plong",
+            "indexed": true
+        },
+        {
+            "name": "spoiler",
+            "type": "booleans",
+            "indexed": true
+        }
+    ]
+}
+   

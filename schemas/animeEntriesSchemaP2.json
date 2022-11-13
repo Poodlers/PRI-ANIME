@@ -1,0 +1,160 @@
+{
+    "add-copy-field":[
+    {
+        "source": "canonical_title",
+        "dest": "title"
+    },
+    {
+        "source": "title_en",
+        "dest": "title"
+    },
+    {
+        "source": "title_ar",
+        "dest": "title"
+    },
+    {
+        "source": "title_ca_es",
+        "dest": "title"
+    },
+    {
+        "source": "title_da_dk",
+        "dest": "title"
+    },
+    {
+        "source": "title_de_de",
+        "dest": "title"
+    },
+    {
+        "source": "title_en-us",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_Sankarea",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_ar",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_cn",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_il",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_jp",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_jp__Koukaku_Kidoutai",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_kr",
+        "dest": "title"
+    },
+    {
+        "source": "title_en_us",
+        "dest": "title"
+    },
+    {
+        "source": "title_es_es",
+        "dest": "title"
+    },
+    {
+        "source": "title_fi_fi",
+        "dest": "title"
+    },
+    {
+        "source": "title_fr_fr",
+        "dest": "title"
+    },
+    {
+        "source": "title_he_il",
+        "dest": "title"
+    },
+    {
+        "source": "title_hu_hu",
+        "dest": "title"
+    },
+    {
+        "source": "title_id_id",
+        "dest": "title"
+    },
+    {
+        "source": "title_it_it",
+        "dest": "title"
+    },
+    {
+        "source": "title_ja_jp",
+        "dest": "title"
+    },
+    {
+        "source": "title_jp_jp",
+        "dest": "title"
+    },
+    {
+        "source": "title_ko_kn",
+        "dest": "title"
+    },
+    {
+        "source": "title_ko_kr",
+        "dest": "title"
+    },
+    {
+        "source": "title_nl_nl",
+        "dest": "title"
+    },
+    {
+        "source": "title_pl_pl",
+        "dest": "title"
+    },
+    {
+        "source": "title_pt_pt",
+        "dest": "title"
+    },
+    {
+        "source": "title_ro_ro",
+        "dest": "title"
+    },
+    {
+        "source": "title_ru_ru",
+        "dest": "title"
+    },
+    {
+        "source": "title_sr_sp",
+        "dest": "title"
+    },
+    {
+        "source": "title_sr_cs",
+        "dest": "title"
+    },
+    {
+        "source": "title_sv_se",
+        "dest": "title"
+    },
+    {
+        "source": "title_th_th",
+        "dest": "title"
+    },
+    {
+        "source": "title_vi_vn",
+        "dest": "title"
+    },
+    {
+        "source": "title_xh_cn",
+        "dest": "title"
+    },
+    {
+        "source": "title_zh_cn",
+        "dest": "title"
+    },
+    {
+        "source": "title_zh_tw",
+        "dest": "title"
+    }
+]
+}
