@@ -7,44 +7,60 @@ import requests
 import pandas as pd
 
 
-QRELS_FILE = "./information_systems_qrels.txt"
-# http://localhost:8983/solr/courses/select?indent=true&q.op=OR&q=title%3Ainformação%2C%20objectives%3Ainformação%2C%20learning_outcomes%3Ainformação
-# http://localhost:8983/solr/courses/select?q=title%3Ainforma%C3%A7%C3%A3o&wt=json
-# http://localhost:8983/solr/courses/select?indent=true&q.op=OR&q=title%3Ainformação%2C%20objectives%3Ainformação
-# http://localhost:8983/solr/courses/select?indent=true&q.op=OR&q=title%3Ainformação%2C%20learning_outcomes%3Ainformação
-# http://localhost:8983/solr/courses/select?indent=true&q.op=OR&q=objectives%3Ainformação%2C%20learning_outcomes%3Ainformação
-QUERY_URL = "http://localhost:8983/solr/courses/select?indent=true&q.op=OR&q=objectives%3Ainformação%2C%20learning_outcomes%3Ainformação"
+query_attempt = 'search_dragon_ball_phrase_matching'
+
+
+QRELS_FILE = "./qrels/anime_dragon_ball_qrels.txt"
+
+# CHARACTER: GOKU
+# http://localhost:8983/solr/animeEntries/select?fl=title_en_jp%2C%20synopsis%2Cid&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3A%22Gokuu%20Son%22&indent=true&q.op=OR&q=*%3A*&rows=40
+# http://localhost:8983/solr/animeEntries/select?fl=id&indent=true&q.op=OR&q=synopsis%3A%22Goku%22&rows=40
+# http://localhost:8983/solr/animeEntries/select?fl=id&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3AGokuu*&indent=true&q.op=OR&q=*%3A*&rows=55
+# http://localhost:8983/solr/animeEntries/select?fl=id&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3AGokuu*&indent=true&q.op=OR&q=synopsis%3Agoku*&rows=40
+
+
+# ANIME BY NAME
+# http://localhost:8983/solr/animeEntries/select?fl=id&indent=true&q.op=OR&q=title_en_jp%3ADragon%20Ball&rows=100
+# http://localhost:8983/solr/animeEntries/select?fl=id&indent=true&q.op=OR&q=title_en_jp%3A%22Dragon%20Ball%22&rows=100
+
+QUERY_URL = "http://localhost:8983/solr/animeEntries/select?fl=id&indent=true&q.op=OR&q=title_en_jp%3A%22Dragon%20Ball%22&rows=100"
 
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 # Get query results from Solr instance
 results = requests.get(QUERY_URL).json()['response']['docs']
 
+
 # METRICS TABLE
 # Define custom decorator to automatically calculate metric based on key
 metrics = {}
-metric = lambda f: metrics.setdefault(f.__name__, f)
+def metric(f): return metrics.setdefault(f.__name__, f)
+
 
 @metric
 def ap(results, relevant):
     """Average Precision"""
     precision_values = [
         len([
-            doc 
+            doc
             for doc in results[:idx]
             if doc['id'] in relevant
-        ]) / idx 
+        ]) / idx
         for idx in range(1, len(results))
     ]
+
     return sum(precision_values)/len(precision_values)
+
 
 @metric
 def p10(results, relevant, n=10):
     """Precision at N"""
     return len([doc for doc in results[:n] if doc['id'] in relevant])/n
 
+
 def calculate_metric(key, results, relevant):
     return metrics[key](results, relevant)
+
 
 # Define metrics to be calculated
 evaluation_metrics = {
@@ -53,24 +69,24 @@ evaluation_metrics = {
 }
 
 # Calculate all metrics and export results as LaTeX table
-df = pd.DataFrame([['Metric','Value']] +
-    [
-        [evaluation_metrics[m], calculate_metric(m, results, relevant)]
-        for m in evaluation_metrics
-    ]
+df = pd.DataFrame([['Metric', 'Value']] +
+                  [
+    [evaluation_metrics[m], calculate_metric(m, results, relevant)]
+    for m in evaluation_metrics
+]
 )
 
-with open('results.tex','w') as tf:
+with open(f'results_{query_attempt}.tex', 'w') as tf:
     tf.write(df.style.to_latex())
 
 # PRECISION-RECALL CURVE
 # Calculate precision and recall values as we move down the ranked list
 precision_values = [
     len([
-        doc 
+        doc
         for doc in results[:idx]
         if doc['id'] in relevant
-    ]) / idx 
+    ]) / idx
     for idx, _ in enumerate(results, start=1)
 ]
 
@@ -82,10 +98,12 @@ recall_values = [
     for idx, _ in enumerate(results, start=1)
 ]
 
-precision_recall_match = {k: v for k,v in zip(recall_values, precision_values)}
+precision_recall_match = {k: v for k,
+                          v in zip(recall_values, precision_values)}
 
 # Extend recall_values to include traditional steps for a better curve (0.1, 0.2 ...)
-recall_values.extend([step for step in np.arange(0.1, 1.1, 0.1) if step not in recall_values])
+recall_values.extend([step for step in np.arange(
+    0.1, 1.1, 0.1) if step not in recall_values])
 recall_values = sorted(set(recall_values))
 
 # Extend matching dict to include these new intermediate steps
@@ -96,6 +114,7 @@ for idx, step in enumerate(recall_values):
         else:
             precision_recall_match[step] = precision_recall_match[recall_values[idx+1]]
 
-disp = PrecisionRecallDisplay([precision_recall_match.get(r) for r in recall_values], recall_values)
+disp = PrecisionRecallDisplay(
+    [precision_recall_match.get(r) for r in recall_values], recall_values)
 disp.plot()
-plt.savefig('precision_recall.pdf')
+plt.savefig(f"precision_recall_{query_attempt}.pdf")
