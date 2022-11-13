@@ -1,0 +1,11 @@
+{
+    "add-field": [
+        {
+            "name": "appears_on",
+            "type": "text_general",
+            "multiValued": true,
+            "indexed": true
+        }
+    ]
+}
+   
