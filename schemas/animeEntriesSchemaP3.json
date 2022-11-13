@@ -2,31 +2,31 @@
     "add-field":[
         {
             "name": "media_relationships.id",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
         {
             "name": "production_relationships.id",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
         {
             "name": "staff.id",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
         {
             "name": "characters.id",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
         {
             "name": "reviews.id",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
@@ -50,25 +50,25 @@
         },
         {
             "name": "show_type",
-            "type": "string",
+            "type": "text_general",
             "multiValued": false,
             "indexed": true
         },
         {
             "name": "status",
-            "type": "string",
+            "type": "text_general",
             "multiValued": false,
             "indexed": true
         },
         {
             "name": "subtype",
-            "type": "string",
+            "type": "text_general",
             "multiValued": false,
             "indexed": true
         },
         {
             "name": "age_rating_guide",
-            "type": "string",
+            "type": "text_general",
             "multiValued": false,
             "indexed": true
         },
@@ -80,13 +80,13 @@
         },
         {
             "name": "synopsis",
-            "type": "string",
+            "type": "text_general",
             "multiValued": false,
             "indexed": true
         },
         {
             "name": "age_rating",
-            "type": "string",
+            "type": "text_general",
             "multiValued": false,
             "indexed": true
         },

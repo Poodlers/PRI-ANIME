@@ -2,17 +2,17 @@
     "add-field": [
         {
             "name": "VAId",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {
             "name": "charID",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {
             "name": "lang",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         }
     ]

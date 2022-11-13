@@ -7,7 +7,7 @@
         },
         {
             "name": "name",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         }
     ]

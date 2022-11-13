@@ -2,12 +2,12 @@
     "add-field": [
         {
             "name": "animeID",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {
             "name": "content",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {

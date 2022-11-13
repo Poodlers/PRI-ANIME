@@ -26,12 +26,12 @@
     "add-field": [
         {
             "name": "description",
-            "type": "string",
+            "type": "text_general",
             "indexed": true
         },
         {
             "name": "appears_on",
-            "type": "string",
+            "type": "text_general",
             "multiValued": true,
             "indexed": true
         },
@@ -71,7 +71,7 @@
             "name": "name_jp",
             "type": "characterName",
             "indexed": true
-        }
+        },
         {
             "name": "name",
             "type": "characterName",
