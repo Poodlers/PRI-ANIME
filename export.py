@@ -85,7 +85,10 @@ def handle_characters(character_entry):
         return character_dict
 
 
-for document in animeCollection.get():
+firstHalf = animeCollection.where('id', '<', '10000').stream()
+secondHalf = animeCollection.where('id', '>=', '10000').stream()
+
+for document in firstHalf:
     docdict = document.to_dict()
     docdict["genre"] = list(map(handle_genre, docdict["genre"]))
     if docdict.get("Categories", 0) != 0:
