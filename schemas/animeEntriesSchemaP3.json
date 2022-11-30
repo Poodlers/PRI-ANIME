@@ -80,7 +80,7 @@
         },
         {
             "name": "synopsis",
-            "type": "text_general",
+            "type": "animeSynopsis",
             "multiValued": false,
             "indexed": true
         },

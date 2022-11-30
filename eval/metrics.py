@@ -7,10 +7,10 @@ import requests
 import pandas as pd
 
 
-query_attempt = 'anime_space_battles_synopsis_field_boost'
+query_attempt = 'anime_dragon_balls_phrase_slop'
 
 
-QRELS_FILE = "./qrels/anime_space_battles_qrels.txt"
+QRELS_FILE = "./qrels/anime_dragon_ball_qrels.txt"
 
 # CHARACTER: GOKU
 # http://localhost:8983/solr/animeEntries/select?fl=title_en_jp%2C%20synopsis%2Cid&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3A%22Gokuu%20Son%22&indent=true&q.op=OR&q=*%3A*&rows=40
@@ -29,7 +29,7 @@ QRELS_FILE = "./qrels/anime_space_battles_qrels.txt"
 # http://localhost:8983/solr/animeEntries/select?fl=id%2C%20title_en_jp&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3A(%2Bspace%20%2Bbattles)&indent=true&q.op=OR&q=*%3A*&rows=100
 # http://localhost:8983/solr/animeEntries/select?fl=id%2C%20title_en_jp%2C%20genre.name&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3ABattles&indent=true&q.op=OR&q=genre.name%3Aspace%20OR%20synopsis%3A(battle%20space)&rows=100
 # http://localhost:8983/solr/animeEntries/select?defType=edismax&fl=id%2C%20title_en_jp%2C&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3ABattles&indent=true&q.op=OR&q=genre.name%3Aspace%20OR%20synopsis%3A(battle%20space)&qf=genre.name%5E10&rows=100
-QUERY_URL = "http://localhost:8983/solr/animeEntries/select?defType=edismax&fl=id%2C%20title_en_jp%2C&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3ABattles&indent=true&q.op=OR&q=genre.name%3Aspace%20OR%20synopsis%3A(battle%20space)&qf=genre.name%5E10&rows=100"
+QUERY_URL = "http://localhost:8983/solr/animeEntries/select?defType=edismax&fl=id%2C%20title_en_jp&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3AGoku~1&indent=true&q.op=OR&q=synopsis%3A%22Goku%22%2C%20title_en_jp%3A%22Goku%22&qf=title_en_jp%5E10&qs=2&rows=50"
 
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
