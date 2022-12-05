@@ -85,10 +85,20 @@ def handle_characters(character_entry):
         return character_dict
 
 
-firstHalf = animeCollection.where('id', '<', '10000').stream()
-secondHalf = animeCollection.where('id', '>=', '10000').stream()
+first_query = animeCollection.order_by(u'id').limit(3000).stream()
+last_id = u'9999'
+next_iter = 7
 
-for document in firstHalf:
+next_query = (
+    animeCollection
+    .order_by(u'id')
+    .start_after({
+        u'id': last_id
+    })
+    .limit(3000)
+).stream()
+
+for document in next_query:
     docdict = document.to_dict()
     docdict["genre"] = list(map(handle_genre, docdict["genre"]))
     if docdict.get("Categories", 0) != 0:
@@ -102,11 +112,11 @@ for document in firstHalf:
     docdict["characters"] = list(map(handle_characters, docdict["characters"]))
     dict4json.append(docdict)
     n_documents += 1
-    print(n_documents)
+    print(docdict["id"])
 
 jsonfromdict = json.dumps(dict4json)
 
-path_filename = "JSON-DATA/animeEntries4.json"
+path_filename = f"JSON-DATA/animeFirst{next_iter}.json"
 print("Downloaded 1 collections, %d documents and now writing %d json characters to %s" %
       (n_documents, len(jsonfromdict), path_filename))
 with open(path_filename, 'w') as the_file:
