@@ -49,6 +49,12 @@
     ],
     "add-field": [
         {
+            "name": "_nest_parent_",
+            "type": "string",
+            "indexed": true,
+            "stored":"true"
+        },
+        {
             "name": "canonical_title",
             "type": "animeTitle",
             "indexed": true

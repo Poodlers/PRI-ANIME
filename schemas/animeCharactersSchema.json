@@ -25,14 +25,8 @@
     ],
     "add-field": [
         {
-            "name": "description",
+            "name": "character_description",
             "type": "text_general",
-            "indexed": true
-        },
-        {
-            "name": "appears_on",
-            "type": "text_general",
-            "multiValued": true,
             "indexed": true
         },
         {
@@ -73,8 +67,13 @@
             "indexed": true
         },
         {
-            "name": "name",
-            "type": "characterName",
+            "name": "char_image",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "character_role",
+            "type": "text_general",
             "indexed": true
         }
     ],
@@ -97,10 +96,6 @@
         },
         {
             "source": "name_jp",
-            "dest": "names_all"
-        },
-        {
-            "source": "name",
             "dest": "names_all"
         },
         {

@@ -1,17 +1,17 @@
 {
     "add-field": [
         {
-            "name": "description",
+            "name": "category_description",
             "type": "text_general",
             "indexed": true
         },
         {
-            "name": "tittle",
+            "name": "category_name",
             "type": "text_general",
             "indexed": true
         },
         {
-            "name": "totalMediaCount",
+            "name": "total_media_count",
             "type": "plong",
             "indexed": true
         }

@@ -1,17 +1,12 @@
 {
     "add-field": [
         {
-            "name": "companyID",
+            "name": "companyName",
             "type": "text_general",
             "indexed": true
         },
         {
-            "name": "animeID",
-            "type": "text_general",
-            "indexed": true
-        },
-        {
-            "name": "role",
+            "name": "production_role",
             "type": "text_general",
             "indexed": true
         }

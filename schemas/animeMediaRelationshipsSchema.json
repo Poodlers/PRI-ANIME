@@ -1,22 +1,17 @@
 {
     "add-field": [
         {
-            "name": "destinationInfo.idDest",
+            "name": "id_dest",
             "type": "text_general",
             "indexed": true
         },
         {
-            "name": "destinationInfo.type",
+            "name": "type_dest",
             "type": "text_general",
             "indexed": true
         },
         {
-            "name": "role",
-            "type": "text_general",
-            "indexed": true
-        },
-        {
-            "name": "sourceID",
+            "name": "media_rel_role",
             "type": "text_general",
             "indexed": true
         }

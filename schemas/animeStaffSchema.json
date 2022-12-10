@@ -6,7 +6,17 @@
             "indexed": true
         },
         {
+            "name": "portrait",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
             "name": "name",
+            "type": "text_general",
+            "indexed": true
+        },
+        {
+            "name": "staff_role",
             "type": "text_general",
             "indexed": true
         }

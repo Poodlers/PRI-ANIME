@@ -1,0 +1,30 @@
+{
+    "add-field": [
+        {
+            "name": "_nest_parent_",
+            "type": "string",
+            "indexed": true,
+            "stored": true
+        },
+        {
+            "name":"category_name",
+            "type":"text_general",
+            "indexed": true
+        },
+        {
+            "name":"nsfw",
+            "type":"boolean",
+            "indexed": true
+        },
+        {
+            "name":"category_description",
+            "type":"text_general",
+            "indexed": true
+        },
+        {
+            "name":"total_media_count",
+            "type":"pint",
+            "indexed": true
+        }
+    ]
+}
