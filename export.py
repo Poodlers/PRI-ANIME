@@ -137,8 +137,7 @@ def handle_staff(staff_entry):
     return None
 
 
-first_query = animeCollection.order_by(u'id').limit(3000).stream()
-current_iter = 0
+current_iter = 3
 
 iterations = [(1, u'1'), (2, u'13607'), (3, u'3997'),
               (4, u'4371'), (5, u'5135'), (6, u'8158')]
@@ -154,7 +153,7 @@ next_query = (
     .limit(3000)
 ).stream()
 
-for document in first_query:
+for document in next_query:
     docdict = document.to_dict()
     docdict["genre"] = list(map(handle_genre, docdict["genre"]))
     if docdict.get("Categories", 0) != 0:
