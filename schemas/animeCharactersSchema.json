@@ -1,28 +1,4 @@
 {
-	"add-field-type": [
-        {
-            "name":"characterName",
-            "class":"solr.TextField",
-            "indexAnalyzer":{
-                "tokenizer":{
-                    "class":"solr.StandardTokenizerFactory"
-                },
-                "filters":[
-                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
-                    {"class":"solr.LowerCaseFilterFactory"}
-                ]
-            },
-            "queryAnalyzer":{
-                "tokenizer":{
-                    "class":"solr.StandardTokenizerFactory"
-                },
-                "filters":[
-                    {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
-                    {"class":"solr.LowerCaseFilterFactory"}
-                ]
-            }
-        }
-    ],
     "add-field": [
         {
             "name": "character_description",
@@ -31,39 +7,39 @@
         },
         {
             "name": "canonical_name",
-            "type": "characterName",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "other_names",
-            "type": "characterName",
+            "type": "short_text_type",
             "multiValued": true,
             "indexed": true
         },
         {
             "name": "names_all",
-            "type": "characterName",
+            "type": "short_text_type",
             "multiValued": true,
             "indexed": true
         },
         {
             "name": "name_en",
-            "type": "characterName",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "name_ja",
-            "type": "characterName",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "name_ja_jp",
-            "type": "characterName",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "name_jp",
-            "type": "characterName",
+            "type": "short_text_type",
             "indexed": true
         },
         {

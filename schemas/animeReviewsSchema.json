@@ -2,7 +2,7 @@
     "add-field": [
         {
             "name": "content",
-            "type": "text_general",
+            "type": "long_text_type",
             "indexed": true
         },
         {

@@ -1,7 +1,7 @@
 {
 	"add-field-type": [
         {
-            "name":"animeTitle",
+            "name":"short_text_type",
             "class":"solr.TextField",
             "indexAnalyzer":{
                 "tokenizer":{
@@ -9,7 +9,9 @@
                 },
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
-                    {"class":"solr.LowerCaseFilterFactory"}
+                    {"class":"solr.LowerCaseFilterFactory"},
+                    {"class":"solr.ShingleFilterFactory"}
+
                 ]
             },
             "queryAnalyzer":{
@@ -18,12 +20,13 @@
                 },
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
-                    {"class":"solr.LowerCaseFilterFactory"}
+                    {"class":"solr.LowerCaseFilterFactory"},
+                     {"class":"solr.ShingleFilterFactory"}
                 ]
             }
         },
         {
-            "name": "animeSynopsis",
+            "name": "long_text_type",
             "class" : "solr.TextField",
             "indexAnalyzer": {
                 "tokenizer": {
@@ -32,7 +35,10 @@
                 "filters": [
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class" : "solr.SnowballPorterFilterFactory", "language": "English"  }
+                    {"class" : "solr.PorterStemFilterFactory"},
+                    {"class" : "solr.StopFilterFactory", "words":"stopwords.txt", "ignoreCase":"true"  },
+                    {"class" : "solr.SynonymGraphFilterFactory", "synonyms":"mysynonyms.txt" },
+                    {"class" : "solr.FlattenGraphFilterFactory"}
                 ]
             },
             "queryAnalyzer":{
@@ -42,7 +48,10 @@
                 "filters":[
                     {"class":"solr.ASCIIFoldingFilterFactory", "preserveOriginal":true},
                     {"class":"solr.LowerCaseFilterFactory"},
-                    {"class" : "solr.SnowballPorterFilterFactory", "language": "English"  }
+                    {"class" : "solr.PorterStemFilterFactory"},
+                    {"class" : "solr.StopFilterFactory", "words":"stopwords.txt", "ignoreCase":"true"  },
+                    {"class" : "solr.SynonymGraphFilterFactory", "synonyms":"mysynonyms.txt" },
+                    {"class" : "solr.FlattenGraphFilterFactory"}
                 ]
             }
         }
@@ -56,197 +65,197 @@
         },
         {
             "name": "canonical_title",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ar",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ca_es",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_da_dk",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_de_de",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en-us",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_Sankarea",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_ar",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_cn",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_il",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_jp",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_jp__Koukaku_Kidoutai",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_kr",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_en_us",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_es_es",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_fi_fi",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_fr_fr",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_he_il",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_hu_hu",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_id_id",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_it_it",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ja_jp",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_jp_jp",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ko_kn",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ko_kr",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_nl_nl",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_pl_pl",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_pt_pt",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ro_ro",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_ru_ru",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_sr_sp",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_sr_cs",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_sv_se",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_th_th",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_vi_vn",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_xh_cn",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_zh_cn",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "title_zh_tw",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "indexed": true
         },
         {
@@ -257,7 +266,7 @@
         },
         {
             "name": "title",
-            "type": "animeTitle",
+            "type": "short_text_type",
             "multiValued": true,
             "indexed": true
         }

@@ -2,7 +2,7 @@
     "add-field": [
         {
             "name": "companyName",
-            "type": "text_general",
+            "type": "short_text_type",
             "indexed": true
         },
         {

@@ -12,12 +12,12 @@
         },
         {
             "name": "VA_name",
-            "type": "text_general",
+            "type": "short_text_type",
             "indexed": true
         },
         {
             "name": "VA_description",
-            "type": "text_general",
+            "type": "long_text_type",
             "indexed": true
         }
     ]

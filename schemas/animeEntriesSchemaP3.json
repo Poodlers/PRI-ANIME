@@ -1,36 +1,6 @@
 {
     "add-field":[
         {
-            "name": "media_relationships.id",
-            "type": "text_general",
-            "multiValued": true,
-            "indexed": true
-        },
-        {
-            "name": "production_relationships.id",
-            "type": "text_general",
-            "multiValued": true,
-            "indexed": true
-        },
-        {
-            "name": "staff.id",
-            "type": "text_general",
-            "multiValued": true,
-            "indexed": true
-        },
-        {
-            "name": "characters.id",
-            "type": "text_general",
-            "multiValued": true,
-            "indexed": true
-        },
-        {
-            "name": "reviews.id",
-            "type": "text_general",
-            "multiValued": true,
-            "indexed": true
-        },
-        {
             "name": "year",
             "type": "plong",
             "multiValued": false,
@@ -80,7 +50,7 @@
         },
         {
             "name": "synopsis",
-            "type": "animeSynopsis",
+            "type": "long_text_type",
             "multiValued": false,
             "indexed": true
         },

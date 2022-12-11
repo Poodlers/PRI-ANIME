@@ -2,12 +2,12 @@
     "add-field": [
         {
             "name": "category_description",
-            "type": "text_general",
+            "type": "long_text_type",
             "indexed": true
         },
         {
             "name": "category_name",
-            "type": "text_general",
+            "type": "short_text_type",
             "indexed": true
         },
         {
