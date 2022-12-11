@@ -137,7 +137,7 @@ def handle_staff(staff_entry):
     return None
 
 
-current_iter = 2
+current_iter = 5
 
 iterations = [(1, u'1'), (2, u'13607'), (3, u'3997'),
               (4, u'4371'), (5, u'5135'), (6, u'8158')]
