@@ -37,6 +37,13 @@ relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 results = requests.get(QUERY_URL).json()['response']['docs']
 
 
+def parse_characters(result):
+    if '_nest_parent_' in result:
+        result['id'] = result['_nest_parent_']
+
+
+results = list(filter(parse_characters, results))
+
 # METRICS TABLE
 # Define custom decorator to automatically calculate metric based on key
 metrics = {}
