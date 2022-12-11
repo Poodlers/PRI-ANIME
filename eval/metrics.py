@@ -7,10 +7,10 @@ import requests
 import pandas as pd
 
 
-query_attempt = 'anime_dragon_balls_phrase_slop'
+query_attempt = 'anime_battle_space'
 
 
-QRELS_FILE = "./qrels/anime_dragon_ball_qrels.txt"
+QRELS_FILE = "./qrels/anime_space_battles_qrels.txt"
 
 # CHARACTER: GOKU
 # http://localhost:8983/solr/animeEntries/select?fl=title_en_jp%2C%20synopsis%2Cid&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3A%22Gokuu%20Son%22&indent=true&q.op=OR&q=*%3A*&rows=40
@@ -29,17 +29,16 @@ QRELS_FILE = "./qrels/anime_dragon_ball_qrels.txt"
 # http://localhost:8983/solr/animeEntries/select?fl=id%2C%20title_en_jp&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3A(%2Bspace%20%2Bbattles)&indent=true&q.op=OR&q=*%3A*&rows=100
 # http://localhost:8983/solr/animeEntries/select?fl=id%2C%20title_en_jp%2C%20genre.name&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3ABattles&indent=true&q.op=OR&q=genre.name%3Aspace%20OR%20synopsis%3A(battle%20space)&rows=100
 # http://localhost:8983/solr/animeEntries/select?defType=edismax&fl=id%2C%20title_en_jp%2C&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCategories%20to%3DCategories%7Dtittle%3ABattles&indent=true&q.op=OR&q=genre.name%3Aspace%20OR%20synopsis%3A(battle%20space)&qf=genre.name%5E10&rows=100
-QUERY_URL = "http://localhost:8983/solr/animeEntries/select?defType=edismax&fl=id%2C%20title_en_jp&fq=%7B!join%20from%3Did%20fromIndex%3DanimeCharacters%20to%3Dcharacters.id%7Dcanonical_name%3AGoku~1&indent=true&q.op=OR&q=synopsis%3A%22Goku%22%2C%20title_en_jp%3A%22Goku%22&qf=title_en_jp%5E10&qs=2&rows=50"
-
+QUERY_URL = "http://localhost:8983/solr/animeEntries/select?defType=edismax&indent=true&q.op=OR&q=title%3ASpace%20Battles%20show_type%3ASpace%20Battles%20content%3ASpace%20Battles%20status%3ASpace%20Battles%20subtype%3ASpace%20Battles%20genre%3ASpace%20Battles%20age_rating_guide%3ASpace%20Battles%20synopsis%3ASpace%20Battles%20age_rating%3ASpace%20Battles%20category_name%3ASpace%20Battles%20category_description%3ASpace%20Battles%20name%3ASpace%20Battles%20staff_role%3ASpace%20Battles%20description%3ASpace%20Battles%20names_all%3ASpace%20Battles%20character_description%3ASpace%20Battles%20VA_description%3ASpace%20Battles%20VA_name%3ASpace%20Battles%20companyName%3ASpace%20Battles%20productionrole%3ASpace%20Battles&rows=50"
 # Read qrels to extract relevant documents
 relevant = list(map(lambda el: el.strip(), open(QRELS_FILE).readlines()))
 # Get query results from Solr instance
 results = requests.get(QUERY_URL).json()['response']['docs']
 
-
 def parse_characters(result):
     if '_nest_parent_' in result:
         result['id'] = result['_nest_parent_']
+    return result
 
 
 results = list(filter(parse_characters, results))
