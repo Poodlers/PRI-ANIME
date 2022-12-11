@@ -37,7 +37,7 @@
                     {"class":"solr.LowerCaseFilterFactory"},
                     {"class" : "solr.PorterStemFilterFactory"},
                     {"class" : "solr.StopFilterFactory", "words":"stopwords.txt", "ignoreCase":"true"  },
-                    {"class" : "solr.SynonymGraphFilterFactory", "synonyms":"mysynonyms.txt" },
+                    {"class" : "solr.SynonymGraphFilterFactory", "synonyms":"synonyms.txt" },
                     {"class" : "solr.FlattenGraphFilterFactory"}
                 ]
             },
@@ -50,7 +50,7 @@
                     {"class":"solr.LowerCaseFilterFactory"},
                     {"class" : "solr.PorterStemFilterFactory"},
                     {"class" : "solr.StopFilterFactory", "words":"stopwords.txt", "ignoreCase":"true"  },
-                    {"class" : "solr.SynonymGraphFilterFactory", "synonyms":"mysynonyms.txt" },
+                    {"class" : "solr.SynonymGraphFilterFactory", "synonyms":"synonyms.txt" },
                     {"class" : "solr.FlattenGraphFilterFactory"}
                 ]
             }
