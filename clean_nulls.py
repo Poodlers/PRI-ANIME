@@ -1,5 +1,6 @@
 import json
 
+
 def remove_nulls(entry, name):
     try:
         if name in entry:
@@ -12,7 +13,7 @@ def remove_nulls(entry, name):
         return []
     except:
         print(entry["id"] + " in " + name)
-    
+
 
 def handle_characters(entry):
     if "characters" in entry:
@@ -32,7 +33,8 @@ def handle_characters(entry):
         return newChars
     return []
 
-f = open("JSON-DATA/animeReal2.json", "r", encoding="utf8")
+
+f = open("JSON-DATA/animeReal4.json", "r", encoding="utf8")
 all_of_it = f.read()
 
 json_object = json.loads(all_of_it)
@@ -40,17 +42,19 @@ json_object = json.loads(all_of_it)
 new_arr = []
 for entry in json_object:
     new_entry = entry
-    new_entry["reviews"] = remove_nulls(entry,"reviews")
-    new_entry["Categories"] = remove_nulls(entry,"Categories")
-    new_entry["media_relationships"] = remove_nulls(entry,"media_relationships")
-    new_entry["production_relationships"] = remove_nulls(entry,"production_relationships")
-    new_entry["staff"] = remove_nulls(entry,"staff")
+    new_entry["reviews"] = remove_nulls(entry, "reviews")
+    new_entry["Categories"] = remove_nulls(entry, "Categories")
+    new_entry["media_relationships"] = remove_nulls(
+        entry, "media_relationships")
+    new_entry["production_relationships"] = remove_nulls(
+        entry, "production_relationships")
+    new_entry["staff"] = remove_nulls(entry, "staff")
     new_entry["characters"] = handle_characters(entry)
     if "title_is_is" in entry:
-        if entry["title_is_is"] == "Múmínálfarnir" or entry["title_is_is"] ==  "Alfréð önd":
+        if entry["title_is_is"] == "Múmínálfarnir" or entry["title_is_is"] == "Alfréð önd":
             del entry['title_is_is']
     new_arr.append(new_entry)
 
-f = open("JSON-DATA/animeReal2_clean.json", "w", encoding="utf8")
+f = open("JSON-DATA/animeReal4_clean.json", "w", encoding="utf8")
 
 f.write(json.dumps(new_arr))
